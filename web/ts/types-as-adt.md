@@ -49,6 +49,10 @@ exclude :: ((Type, Type) -> Type) -> T Type -> Type
 exclude = foldMap assignable
 ```
 
+In the context of these utility methods, it makes sense how `never` can be
+useful as an additive identity under `|`. We can refine union types by mapping
+elements to exclude to the `never` type and let `|` do the work.
+
 Now, consider the category of these types with functions as morphisms. This
 category forms a monoidal category, which enables cool things to be defined
 (i.e. applicative functors and monads, which are great abstractions for
