@@ -30,18 +30,18 @@ type T14 = [boolean | int, string]
 type T15 = [boolean, string] | [int, string] // right distributive
 ```
 
-So, `any` and `unknown` are top types. `null` and `undefined` are unit types.
-`never` is a bottom type. It seems to me that viewing types as an algebra helps
-a lot when thinking about type level programming in TypeScript. For example, I
-recently learned about distributive conditional types: `T extends U ? X : Y`.
-If `T` is a naked type parameter that is a union type, then the conditional
-types are distributed over the individual constituents of `T`. One way to think
-about this operation is `foldMap :: Monoid m => (a -> m) -> t a -> m`. `(a ->
-m)` maps each contituent type in `T` to another type. If we remember that types
-form a monoid under `|` and `never`, it makes a lot of sense that we can make
-`(a -> m)` map types to themselves or `never` based on whether `T` is
-assignable to `U` to implement `Exclude<U, T>` and `Extract<U, T>`. In
-psuedocode:
+So, `any` and `unknown` are top types. `null` and `undefined` (update: wait,
+there's also `void`!) are unit types.  `never` is a bottom type. It seems to me
+that viewing types as an algebra helps a lot when thinking about type level
+programming in TypeScript. For example, I recently learned about distributive
+conditional types: `T extends U ? X : Y`.  If `T` is a naked type parameter
+that is a union type, then the conditional types are distributed over the
+individual constituents of `T`. One way to think about this operation is
+`foldMap :: Monoid m => (a -> m) -> t a -> m`. `(a -> m)` maps each contituent
+type in `T` to another type. If we remember that types form a monoid under `|`
+and `never`, it makes a lot of sense that we can make `(a -> m)` map types to
+themselves or `never` based on whether `T` is assignable to `U` to implement
+`Exclude<U, T>` and `Extract<U, T>`. In psuedocode:
 
 ``` haskell
 --                 <union>
