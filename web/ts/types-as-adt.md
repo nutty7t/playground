@@ -44,9 +44,9 @@ assignable to `U` to implement `Exclude<U, T>` and `Extract<U, T>`. In
 psuedocode:
 
 ``` haskell
---           <predicate>             <union>
-exclude :: ((Type, Type) -> Type) -> T Type -> Type
-exclude = foldMap assignable
+--                 <union>
+exclude :: Type -> T Type -> Type
+exclude U = foldMap $ assignable U
 ```
 
 In the context of these utility methods, it makes sense how `never` can be
