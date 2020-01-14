@@ -51,7 +51,9 @@ exclude U = foldMap $ assignable U
 
 In the context of these utility methods, it makes sense how `never` can be
 useful as an additive identity under `|`. We can refine union types by mapping
-elements to exclude to the `never` type and let `|` do the work.
+elements to exclude to the `never` type and let `|` do the work. `never` is
+also useful to represent the case when variables are narrowed by type guards
+that can never be true. `never` is the "empty set".
 
 Now, consider the category of these types with functions as morphisms. This
 category forms a monoidal category, which enables cool things to be defined
