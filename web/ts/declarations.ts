@@ -1,0 +1,33 @@
+// I'm fairly familiar with the differences between var, let, and const: the
+// scoping, hoisting, destructuring, and assignment rules. But I've learned a
+// few more things reading the TS docs.
+
+interface Foo {
+	a: number
+	b: number
+	c: number
+	z?: string
+}
+
+const foo = {
+	a: 100,
+	b: 200,
+	c: 300
+} as Foo
+
+// You can rename variables during object destructuring.
+// This is called "property renaming".
+const { a: apple, b: banana } = foo
+console.log(apple)  // => 100
+console.log(banana) // => 200
+
+// You can also set default values in case a property is undefined.
+const { z = 'not defined' } = foo
+console.log(z)
+
+// Assignment can occur without declaration.
+let a: number
+let b: number
+;({ a, b } = foo)
+console.log(a)
+console.log(b)
