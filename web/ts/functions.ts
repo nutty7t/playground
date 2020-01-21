@@ -32,3 +32,24 @@ person.hello('world')
 person.dynamicHello = hello
 person.dynamicHello('world')
 // desugars to person.hello.call(person, 'world')
+
+// `this` is bound at call time, but there is a pattern that allows
+// for a persistent `this` value. This is achieved with closures.
+const boundHello = function (thing: string) {
+	return person.hello.call(person, thing)
+}
+
+boundHello('world')
+// desugars to boundHello(undefined, 'world'), but `this` immediately gets
+// rebound to `person`, which got captured in the closure.
+
+// More generally,
+function bind (fn: Function, thisValue: any) {
+	return function () {
+		// apply is the same as call, but the arguments are passed as an array
+		return fn.apply(thisValue, arguments)
+	}
+}
+
+// This was a common idiom so ES5 introduced bind on all Function objects.
+person.hello.bind(person)('world')
