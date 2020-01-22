@@ -66,4 +66,31 @@ function main () {
 	if (!gl.getProgramParameter(program, gl.VALIDATE_STATUS)) {
 		console.error(gl.getProgramInfoLog(program))
 	}
+
+	// Create buffer.
+	const triangleVertices = [
+		+0.0, +0.5,
+		-0.5, -0.5,
+		+0.5, -0.5
+	]
+
+	const triangleVertexBufferObject = gl.createBuffer()
+	gl.bindBuffer(gl.ARRAY_BUFFER, triangleVertexBufferObject)
+	gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(triangleVertices), gl.STATIC_DRAW)
+
+	const positionAttribLocation = gl.getAttribLocation(program, 'vertPosition')
+	gl.vertexAttribPointer(
+		positionAttribLocation,             // attribute location
+		2,                                  // number of elements per attribute
+		gl.FLOAT,                           // element type
+		gl.FALSE,
+		2 * Float32Array.BYTES_PER_ELEMENT, // size of individual vertex
+		0                                   // offset from beginning of vertex to this attribute
+	)
+
+	gl.enableVertexAttribArray(positionAttribLocation)
+
+	// Main render loop.
+	gl.useProgram(program)
+	gl.drawArrays(gl.TRIANGLES, 0, 3)
 }
