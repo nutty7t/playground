@@ -129,7 +129,7 @@ vocabulary for describing many common patterns.
 foldMap((n => n * n as Additive), [1, 2, 3]) // => 15
 ```
 
-This works really well with abstract data types.
+This works really well with algebraic data types.
 
 Suppose that I have a sum type that extends an existing type with the value of `Nothing`.
 
@@ -167,7 +167,7 @@ result2 = foldMap(parseNumber, ['1', '2', '3', 'foo']) // => Nothing
 
 The generalization of a fold is called a catamorphism. Since we're folding over
 a collection of Maybe types, this operation above is what you might call a
-Maybe catamorphism. If you're not working with abstract data types all that
+Maybe catamorphism. If you're not working with algebraic data types all that
 often, folding (or reducing) and catamorphisms are basically the same thing.
 
 Basically, monoids are great for composing functionality together. And they provide
