@@ -135,6 +135,8 @@ for (const n of naturalIterable) {
 
 // This is both an Iterator AND an Iterable.
 const naturalIterable2 = {
+	// edit: actually, I'm dumb. It's not an iterable. It's actually this.next
+	// that's an iterable. See below for a correct example.
 	next: makeNaturalIterator(),
 	[Symbol.iterator]: function () {
 		// This iterable may only iterate once because @@iterator returns a
@@ -181,3 +183,20 @@ const anotherCountDownIterable = {
 
 console.log([...anotherCountDownIterable])
 // => [ 'Preparing to launch...', '3', '2', '1', 'Blast off!' ]
+
+// THIS is an example of an object that is both an Iterable and an Iterator.
+let foo = {
+	i: 0,
+	next () {
+		return {
+			value: this.i++,
+			done: this.i > 10
+		}
+	},
+	[Symbol.iterator]: function () {
+		return this
+	}
+}
+
+console.log([...foo]) // => [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 ]
+console.log([...foo]) // => []
