@@ -135,8 +135,8 @@ for (const n of naturalIterable) {
 
 // This is both an Iterator AND an Iterable.
 const naturalIterable2 = {
-	// edit: actually, I'm dumb. It's not an iterable. It's actually this.next
-	// that's an iterable. See below for a correct example.
+	// edit: actually, I'm dumb. It's not an iterator. It's actually this.next
+	// that's an iterator. See below for a correct example.
 	next: makeNaturalIterator(),
 	[Symbol.iterator]: function () {
 		// This iterable may only iterate once because @@iterator returns a
