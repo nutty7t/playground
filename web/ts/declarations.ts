@@ -35,7 +35,7 @@ console.log(b)
 
 function tdz () {
 	//  ^
-    //  |
+	//  |
 	//
 	// This space between the beginning of the block and the declaration of 'a'
 	// is called a "temporal dead zone". TECHNICALLY, let and const declarations
