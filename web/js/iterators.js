@@ -185,6 +185,8 @@ console.log([...anotherCountDownIterable])
 // => [ 'Preparing to launch...', '3', '2', '1', 'Blast off!' ]
 
 // THIS is an example of an object that is both an Iterable and an Iterator.
+// This is very similar to a generator object (return value of a generator
+// function). A generator object is both iterator and iterable.
 let foo = {
 	i: 0,
 	next () {
