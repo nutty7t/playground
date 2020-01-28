@@ -1,0 +1,20 @@
+vertex shader - compute vertex positions
+vertex positions -> rasterize primitives
+fragment shader - compute color of each pixel of rasterized primitive
+
+four ways a shader can receive data
+1. attributes, buffers, and vertex arrays
+	buffers - arrays of binary data (not random access)
+	attributes - specify how to pull data out of buffers
+	vertex array object (VAO) - stores data about buffers and attributes
+2. uniforms
+	global variables, effectively
+3. textures
+	arrays of data (random access) - can store image data, colors, etc.
+4. varyings
+	interface: vertex shader -> [interpolation] -> fragment shader
+
+vertex shader provides clip space coordinates
+fragment shader provides the colors
+
+clip space coordinates are in [-1, 1]
