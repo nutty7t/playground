@@ -1,0 +1,36 @@
+Design System
+
+// Notes from Charli Marie's "Figma design system for a marketing website" video
+
+- Save as Team Library
+	- Single Source of Truth
+	- Updates to library will propogate to everything that uses it
+
+- Logos
+	- Group components by related
+
+- Colors
+	- Save as "Color Style"
+
+- Typography
+	- Save as "Text Style"
+
+- Icons
+	- Drag SVG into Frame
+	- Turn them into components
+	- Name components with the same name as the CSS class
+
+"Put *like* items in the same frame."
+
+- Buttons
+	- Nested Components
+		- Create Shape components as base
+		- Create instances of the shape components
+		- Compose instances with nested grouping
+
+- Components
+	- "Pay attention to responsive constraints
+	- Kind of for ad-hoc/repeated designs
+
+- Navigation
+	- "Design for desktop, tablet, and mobile breakpoints"
