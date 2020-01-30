@@ -1,9 +1,9 @@
 // Object.values and Object.entries aren't a thing yet until ES2017.
 // Use `tsc --lib es2017,dom GCounter.ts` to compile.
 
-type ReplicaId = string
+export type ReplicaId = string
 
-interface GCounter {
+export interface GCounter {
 	readonly id: ReplicaId
 	readonly counters: { [k: string]: number }
 	readonly value: () => number
@@ -13,7 +13,7 @@ interface GCounter {
 
 const sum = (a: number, b: number) => a + b
 
-function createGCounter (id: ReplicaId): GCounter {
+export function createGCounter (id: ReplicaId): GCounter {
 	return {
 		id,
 		counters: {
