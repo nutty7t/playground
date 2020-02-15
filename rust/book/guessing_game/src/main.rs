@@ -12,37 +12,50 @@ use std::cmp::Ordering;
 use std::io;
 
 fn main() {
-	println!("Guess the number!");
+    println!("Guess the number!");
 
-	let secret_number = thread_rng().gen_range(1, 101);
+    let secret_number = thread_rng().gen_range(1, 101);
 
-	println!("The secret number is: {}", secret_number);
+    loop {
+        println!("Please input your guess.");
 
-	println!("Please input your guess.");
+        // Variables are immutable by default.
+        // To make them mutable, we must include the `mut` keyword.
+        let mut guess = String::new();
 
-	// Variables are immutable by default.
-	// To make them mutable, we must include the `mut` keyword.
-	let mut guess = String::new();
+        io::stdin()
+            // References are immutable by default, so we need to
+            // use `&mut` to make them mutable.
+            //
+            // std::io::stdin returns an io::Result type.
+            //
+            //   type Result<T> = Result<T, Error>;
+            //
+            // This reminds me a lot of Haskell's Either type.
+            .read_line(&mut guess)
+            // expect unwraps a result if the instance of io::Result is Ok.
+            // Otherise it will panic with an error message if the instance is Err.
+            .expect("Failed to read line");
 
-	io::stdin()
-		// References are immutable by default, so we need to
-		// use `&mut` to make them mutable.
-		//
-		// std::io::stdin returns an io::Result type.
-		//
-		//   type Result<T> = Result<T, Error>;
-		//
-		// This reminds me a lot of Haskell's Either type.
-		.read_line(&mut guess)
-		// expect unwraps a result if the instance of io::Result is Ok.
-		// Otherise it will panic with an error message if the instance is Err.
-		.expect("Failed to read line");
+        // This variable, guess, is a *different* variable from the
+        // other guess. Variable shadowing.
+        //
+        // parse is a generic method, but it can infer the instance
+        // from the type declaration.
+        let guess: u32 = match guess.trim().parse() {
+            Ok(num) => num,
+            Err(_) => continue,
+        };
 
-	println!("You guessed: {}", guess);
+        println!("You guessed: {}", guess);
 
-	match guess.cmp(&secret_number) {
-		Ordering::Less => println!("Too small!"),
-		Ordering::Greater => println!("Too big!"),
-		Ordering::Equal => println!("You win!"),
-	}
+        match guess.cmp(&secret_number) {
+            Ordering::Less => println!("Too small!"),
+            Ordering::Greater => println!("Too big!"),
+            Ordering::Equal => {
+                println!("You win!");
+                break;
+            }
+        }
+    }
 }
