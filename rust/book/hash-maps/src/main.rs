@@ -46,4 +46,77 @@ fn main() {
         *count += 1;
     }
     println!("{:?}", map);
+
+    // Exercise 1
+    println!("{:?}", mmm(&[1, 2, 3, 4, 5, 5]));
+    println!("{:?}", mmm(&[3, 4, 2, 1, 5, 5]));
+    println!("{:?}", mmm(&[]));
+
+    // Exercise 2
+    println!("{:?}", pig_latin("the rust programming language ナッティ"));
+}
+
+#[derive(Debug)]
+enum Result {
+    Int(i32),
+    Float(f64),
+}
+
+/// Given a list of integers, use a vector and return the mean (the average value), median (when
+/// sorted, the value in the middle position), and mode (the value that occurs most often; a hash
+/// map will be helpful here) of the list.
+fn mmm(list: &[i32]) -> Option<Vec<Result>> {
+    match list.len() {
+        0 => None,
+        _ => {
+            // Mean
+            let mut sum = 0;
+            for i in list {
+                sum += i
+            }
+            let mean = (sum as f64) / (list.len() as f64);
+
+            // Median
+            let mut sorted_list: Vec<i32> = list.iter().copied().collect();
+            sorted_list.sort();
+            let median = sorted_list[list.len() / 2];
+
+            // Mode
+            let mut frequencies = HashMap::new();
+            let mut mode = 0;
+            let mut max_count = 0;
+            for &i in list {
+                let count = frequencies.entry(i).or_insert(0);
+                *count += 1;
+
+                if *count > max_count {
+                    max_count = *count;
+                    mode = i;
+                }
+            }
+
+            Some(vec![
+                Result::Float(mean),
+                Result::Int(median),
+                Result::Int(mode),
+            ])
+        }
+    }
+}
+
+/// Convert strings to pig latin. The first consonant of each word is moved to the end of the word
+/// and “ay” is added, so “first” becomes “irst-fay.” Words that start with a vowel have “hay”
+/// added to the end instead (“apple” becomes “apple-hay”). Keep in mind the details about UTF-8
+/// encoding!
+fn pig_latin(words: &str) -> String {
+    let mut pig_latin_words = Vec::new();
+    let words = words.split_whitespace();
+    for w in words {
+        let mut chars: Vec<char> = w.chars().collect();
+        let head = chars.remove(0);
+        let tail: String = chars.into_iter().collect();
+        let pig_latin_word = format!("{}-{}ay", tail, head);
+        pig_latin_words.push(pig_latin_word);
+    }
+    pig_latin_words.join(" ")
 }
