@@ -1,0 +1,34 @@
+Concepts
+--------
+package management
+interference (caused by incomplete dependencies/inexact notions of compatibility)
+destructive upgrading
+dependency hell
+component store (/nix/store)
+retained dependencies
+conservative garbage collection
+complete deployments
+transitive closures
+nixpkgs
+nix expressions
+derivations
+builders
+
+Facts
+-----
+Software Deployment Issues
+	- Environmental
+		- completeness -> closures
+		- dependency identification / completeness -> empty build environment
+		- nominal dependencies (not exact) -> cryptographic hashes
+	- Manageability
+		- steps to uninstall -> "generations" and immutability
+		- DLL hell -> closures
+		- destructive upgrades -> immutability
+		- not atomic -> switch symlinks after installation
+		- source and binary deployments not compatible -> binaries are memoized source deployments
+		- global namespace (can't install multiple versions) -> cryptographic hashes
+
+Procedures
+----------
+Writing Nix Expression for Software Component
